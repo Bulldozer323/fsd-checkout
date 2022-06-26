@@ -1,0 +1,7 @@
+.root {
+  box-sizing: content-box;
+  height: 100%;
+  margin: 0 auto;
+  max-width: 824px;
+  padding: 0 16px;
+}

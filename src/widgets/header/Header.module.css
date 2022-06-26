@@ -1,0 +1,10 @@
+.header {
+  padding: 16px;
+  background-color: white;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
