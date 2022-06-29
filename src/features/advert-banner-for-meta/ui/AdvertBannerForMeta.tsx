@@ -9,20 +9,21 @@ import {
 import type { AdvertBannerId } from '~/shared/api';
 import { configStore } from '~/shared/model';
 
-const { useIsMetaSearch } = configStore;
-const { getAdvertBannerById, checkAdvertBannerIsEnabled } = advertBannerLib;
-const { getAdvertBannersQuery, getEnabledAdvertBannersQuery } = advertBannerApi;
-
 export const AdvertBannerForMeta: FC<{ id: AdvertBannerId }> = ({ id }) => {
-  const { data: banners } = useQuery(getAdvertBannersQuery);
-  const { data: bannersEnabledMap } = useQuery(getEnabledAdvertBannersQuery);
+  const { data: banners } = useQuery(advertBannerApi.getAdvertBannersQuery);
+  const { data: bannersEnabledMap } = useQuery(
+    advertBannerApi.getEnabledAdvertBannersQuery
+  );
 
-  const isMetaSearch = useIsMetaSearch();
-  const isEnabled = checkAdvertBannerIsEnabled(bannersEnabledMap, id);
+  const isMetaSearch = configStore.useIsMetaSearch();
+  const isEnabled = advertBannerLib.checkAdvertBannerIsEnabled(
+    bannersEnabledMap,
+    id
+  );
 
   if (!isEnabled || !isMetaSearch) return null;
 
-  const banner = getAdvertBannerById(banners, id);
+  const banner = advertBannerLib.getAdvertBannerById(banners, id);
 
   return <AdvertBanner banner={banner} />;
 };
